@@ -1,0 +1,55 @@
+package com.example.demo.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import lombok.Data;
+import jakarta.persistence.Id;
+
+@Data
+@Entity
+public class Country {
+    @Id
+    @GeneratedValue
+    Long id;
+    String name;
+    String continent ;
+
+    public Country(Long id, String name, String continent) {
+        this.id = id;
+        this.name = name;
+        this.continent = continent;
+    }
+
+    public Country(String name, String continent) {
+        this.name = name;
+        this.continent = continent;
+    }
+
+    public Country() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public void setContinent(String continent) {
+        this.continent = continent;
+    }
+}
