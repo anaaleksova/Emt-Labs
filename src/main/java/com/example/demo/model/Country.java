@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Data;
 import jakarta.persistence.Id;
 
@@ -9,10 +10,10 @@ import jakarta.persistence.Id;
 @Entity
 public class Country {
     @Id
-    @GeneratedValue
-    Long id;
-    String name;
-    String continent ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String continent ;
 
     public Country(Long id, String name, String continent) {
         this.id = id;

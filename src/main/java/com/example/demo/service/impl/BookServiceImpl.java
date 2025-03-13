@@ -1,5 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.model.BookDto;
+import com.example.demo.repository.AuthorRepository;
+import com.example.demo.repository.CountryRepository;
 import com.example.demo.service.BookService;
 import com.example.demo.model.Book;
 import org.springframework.stereotype.Service;
@@ -12,9 +15,10 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
-
-    public BookServiceImpl(BookRepository bookRepository) {
+    private final AuthorRepository authorRepository;
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
     }
 
     @Override
@@ -23,9 +27,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> save(Book book) {
-        return Optional.of(bookRepository.save(book));
+    public Optional<Book> save(BookDto book) {
+        if (book.getAuthorId() != null &&
+                authorRepository.findById(book.getAuthorId()).isPresent()) {
+            return Optional.of(
+                    bookRepository.save(new Book(book.getName(),
+                            book.getCategory(),
+                            authorRepository.findById(book.getAuthorId()).get(),
+                            book.getAvailableCopies())));
+        }
+        return Optional.empty();
     }
+
 
     @Override
     public Optional<Book> findById(Long id) {
@@ -33,7 +46,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> update(Long id, Book book) {
+    public Optional<Book> update(Long id, BookDto book) {
         return bookRepository.findById(id).map(existingBook -> {
             if (book.getName() != null) {
                 existingBook.setName(book.getName());
@@ -41,8 +54,8 @@ public class BookServiceImpl implements BookService {
             if (book.getCategory() != null) {
                 existingBook.setCategory(book.getCategory());
             }
-            if (book.getAuthor() != null) {
-                existingBook.setAuthor(book.getAuthor());
+            if (book.getAuthorId() != null  && authorRepository.findById(book.getAuthorId()).isPresent()) {
+                existingBook.setAuthor(authorRepository.findById(book.getAuthorId()).get());
             }
             if (book.getAvailableCopies() != null) {
                 existingBook.setAvailableCopies(book.getAvailableCopies());

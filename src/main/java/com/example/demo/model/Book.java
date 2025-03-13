@@ -7,22 +7,14 @@ import lombok.Data;
 @Data
 public class Book {
 
-    @Id @GeneratedValue
-    Long id;
-    String name;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
     @Enumerated(value = EnumType.STRING)
-    Category Category;
+    private Category Category;
     @ManyToOne
-    Author author;
-    Integer availableCopies;
-
-    public Book(Long id, String name, Category category, Author author, Integer availableCopies) {
-        this.id = id;
-        this.name = name;
-        Category = category;
-        this.author = author;
-        this.availableCopies = availableCopies;
-    }
+    private Author author;
+    private Integer availableCopies;
 
     public Book(String name, com.example.demo.model.Category category, Author author, Integer availableCopies) {
         this.name = name;

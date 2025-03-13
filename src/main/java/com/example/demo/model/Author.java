@@ -1,27 +1,17 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 public class Author {
-    @Id@GeneratedValue
-    Long id ;
-    String name;
-    String surname;
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id ;
+    private String name;
+    private String surname;
     @ManyToOne
-    Country country;
-
-    public Author(Long id, String name, String surname, Country country) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.country = country;
-    }
+    private Country country;
 
     public Author(String name, String surname, Country country) {
         this.name = name;
