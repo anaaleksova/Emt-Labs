@@ -1,7 +1,7 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.domain.impl;
 
-import com.example.demo.model.Country;
-import com.example.demo.service.CountryService;
+import com.example.demo.model.domain.Country;
+import com.example.demo.service.domain.CountryService;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.CountryRepository;
 

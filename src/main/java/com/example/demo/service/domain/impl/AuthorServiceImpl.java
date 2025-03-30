@@ -1,7 +1,7 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.domain.impl;
 
-import com.example.demo.service.AuthorService;
-import com.example.demo.model.Author;
+import com.example.demo.service.domain.AuthorService;
+import com.example.demo.model.domain.Author;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.AuthorRepository;
 

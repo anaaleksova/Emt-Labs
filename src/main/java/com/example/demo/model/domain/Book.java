@@ -1,5 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.model.domain;
 
+import com.example.demo.model.enumerations.Category;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,14 +12,14 @@ public class Book {
     private Long id;
     private String name;
     @Enumerated(value = EnumType.STRING)
-    private Category Category;
+    private Category category;
     @ManyToOne
     private Author author;
     private Integer availableCopies;
 
-    public Book(String name, com.example.demo.model.Category category, Author author, Integer availableCopies) {
+    public Book(String name, Category category, Author author, Integer availableCopies) {
         this.name = name;
-        Category = category;
+        this.category = category;
         this.author = author;
         this.availableCopies = availableCopies;
     }
@@ -44,11 +45,11 @@ public class Book {
     }
 
     public Category getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(Category category) {
-        Category = category;
+        this.category = category;
     }
 
     public Author getAuthor() {

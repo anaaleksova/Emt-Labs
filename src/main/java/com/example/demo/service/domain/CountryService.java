@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.service.domain;
 
-import com.example.demo.model.Country;
+import com.example.demo.model.domain.Country;
 
 import java.util.List;
 import java.util.Optional;
