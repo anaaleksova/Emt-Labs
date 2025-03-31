@@ -3,12 +3,16 @@ package com.example.demo.config;
 
 import com.example.demo.model.domain.Author;
 import com.example.demo.model.domain.Book;
+import com.example.demo.model.domain.User;
 import com.example.demo.model.enumerations.Category;
 import com.example.demo.model.domain.Country;
+import com.example.demo.model.enumerations.Role;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.CountryRepository;
+import com.example.demo.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,16 +21,17 @@ public class DataInitializer {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final CountryRepository countryRepository;
-//    private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public DataInitializer(BookRepository bookRepository,
-                           AuthorRepository authorRepository, CountryRepository countryRepository) {
+                           AuthorRepository authorRepository, CountryRepository countryRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.countryRepository = countryRepository;
-//        this.userRepository = userRepository;
-//        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+
     }
 
     @PostConstruct
@@ -54,14 +59,22 @@ public class DataInitializer {
                 authorRepository.findById(3L).orElseThrow(), 10));
         bookRepository.save(new Book("Adventures of Huckleberry Finn", Category.DRAMA,
                 authorRepository.findById(4L).orElseThrow(), 7));
-//
-//        userRepository.save(new User(
-//                "user",
-//                passwordEncoder.encode("user"),
-//                "user",
-//                "user",
-//                Role.USER
-//        ));
+
+        userRepository.save(new User(
+                "user",
+                passwordEncoder.encode("user"),
+                "user",
+                "user",
+                Role.USER
+        ));
+
+        userRepository.save(new User(
+                "librarian",
+                passwordEncoder.encode("li"),
+                "li",
+                "li",
+                Role.LIBRARIAN
+        ));
 
     }
 }
